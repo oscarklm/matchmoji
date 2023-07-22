@@ -4,7 +4,7 @@
 	export let matches: string[];
 </script>
 
-<div class="matches-found">
+<div class="matches-found overflow-hidden gap-1 md:gap-2">
 	{#each matches as match (match)}
 		<div class="box" in:fly={{ x: 100, duration: 300 }}>
 			<span class="match text-sm md:text-base">
@@ -18,7 +18,6 @@
 <style>
 	.matches-found {
 		display: flex;
-		gap: 0.8rem;
 		position: relative;
 	}
 
