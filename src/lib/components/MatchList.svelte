@@ -6,8 +6,8 @@
 
 <div class="matches-found">
 	{#each matches as match (match)}
-		<div class="box" in:fly={{ x: 350, duration: 300 }}>
-			<span class="match">
+		<div class="box" in:fly={{ x: 100, duration: 300 }}>
+			<span class="match text-sm md:text-base">
 				{match}
 			</span>
 			<span class="duplicate">{match}</span>
@@ -35,13 +35,13 @@
 	}
 
 	.match {
-		transform: translate(-30%, 0);
+		transform: translate(-20%, 10%);
 	}
 
 	.duplicate {
 		position: relative;
 		scale: 0.8;
-		transform: translate(-80%, -15%) rotate(25deg);
+		transform: translate(-80%, -10%) rotate(25deg);
 		z-index: -1;
 	}
 </style>
