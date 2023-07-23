@@ -374,19 +374,19 @@ export const hard = [
 export const levels: Level[] = [
 	{
 		name: 'Easy',
-		duration: 2,
+		duration: 45,
 		emojis: easy,
 		size: 4
 	},
 	{
 		name: 'Medium',
-		duration: 120,
+		duration: 100,
 		emojis: medium,
 		size: 6
 	},
 	{
 		name: 'Hard',
-		duration: 180,
+		duration: 160,
 		emojis: hard,
 		size: 8
 	}

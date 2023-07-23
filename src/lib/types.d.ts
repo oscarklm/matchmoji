@@ -10,9 +10,9 @@ interface Card {
 	emoji: string;
 }
 
-type PlayState = 'waiting' | 'playing' | 'paused' | 'gameover';
+type PlayState = 'waiting' | 'playing' | 'won' | 'lost';
 
-interface GameState {
+interface GameSettings {
 	state: PlayState;
 	level: Level;
 	matches: string[];

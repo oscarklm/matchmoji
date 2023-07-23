@@ -4,43 +4,11 @@
 	export let matches: string[];
 </script>
 
-<div class="matches-found overflow-hidden gap-1 md:gap-2">
+<div class="flex gap-2 w-full h-full select-none">
 	{#each matches as match (match)}
-		<div class="box" in:fly={{ x: 100, duration: 300 }}>
-			<span class="match text-sm md:text-base">
-				{match}
-			</span>
-			<span class="duplicate">{match}</span>
+		<div class="flex justify-center items-center bg-white rounded-md h-9 w-9">
+			<div class="text-sm translate-x-1 -translate-y-0.5">{match}</div>
+			<div class="absolute -translate-x-1">{match}</div>
 		</div>
 	{/each}
 </div>
-
-<style>
-	.matches-found {
-		display: flex;
-		position: relative;
-	}
-
-	.box {
-		display: flex;
-		align-items: center;
-		width: 2rem;
-		height: 2rem;
-		padding: 0.5rem;
-		border-radius: 0.5rem;
-
-		background: white;
-		z-index: 10;
-	}
-
-	.match {
-		transform: translate(-20%, 10%);
-	}
-
-	.duplicate {
-		position: relative;
-		scale: 0.8;
-		transform: translate(-80%, -10%) rotate(25deg);
-		z-index: -1;
-	}
-</style>

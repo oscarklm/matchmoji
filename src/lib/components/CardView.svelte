@@ -4,15 +4,12 @@
 	export let matched = false;
 </script>
 
-<div
-	class="card relative transform-gpu w-full h-full preserve-3d transition-transform duration-300"
-	class:flipped
->
+<div class="card aspect-square relative transition-transform duration-300" class:flipped>
 	<div class="front bg-slate-800 rounded-md">
 		<button class="w-full h-full bg-transparent" on:click />
 	</div>
 	<div
-		class="back rounded-md bg-white flex justify-center items-center ring-2 ring-slate-800"
+		class="back rounded-md bg-white flex justify-center items-center ring-2 ring-slate-800 md:text-4xl"
 		class:matched
 	>
 		{card.emoji}
@@ -38,7 +35,8 @@
 	}
 
 	.back {
-		transition: all 1s;
+		transition: opacity 1s;
+		transition: background-color 1s;
 		transform: rotateY(180deg);
 	}
 
