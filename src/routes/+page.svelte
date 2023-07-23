@@ -8,7 +8,6 @@
 
 <Game
 	{state}
-	level={levels[0]}
 	on:match={() => {
 		console.log('match');
 	}}

@@ -4,7 +4,10 @@
 	export let matched = false;
 </script>
 
-<div class="card aspect-square relative transition-transform duration-300" class:flipped>
+<div
+	class="card aspect-square relative transition-transform duration-300 touch-manipulation"
+	class:flipped
+>
 	<div class="front bg-slate-800 rounded-md">
 		<button class="w-full h-full bg-transparent" on:click />
 	</div>

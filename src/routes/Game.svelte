@@ -80,17 +80,26 @@
 		}
 	}
 
+	// Check if we won
 	$: {
-		if (matches.length === selected_level.size * 2) {
-			setTimeout(() => {
-				state = 'won';
-			}, 500);
+		if (state === 'playing' && matches.length >= emojis.length) {
+			const a = matches.sort();
+			const b = emojis.sort();
+
+			const arraysMatch = a.every((value, index) => value === b[index]);
+
+			if (arraysMatch) {
+				setTimeout(() => {
+					state = 'won';
+					clearInterval(countdown_id);
+				}, 500);
+			}
 		}
 	}
 </script>
 
 <main
-	class="flex flex-col h-screen w-screen p-10 md:p-48"
+	class="flex flex-col h-screen w-screen p-6 md:p-48"
 	style="--size: {selected_level.size}"
 	class:bg-sky-400={selected_level.name === 'Easy'}
 	class:bg-orange-400={selected_level.name === 'Medium'}
@@ -173,11 +182,10 @@
 			</div>
 			<div class="flex flex-col gap-2 justify-center items-center w-full h-full">
 				<h1 class="text-5xl font-bold">You won 🥳</h1>
-				<p class="text-3xl font-light pb-4">Press start to play</p>
+				<p class="text-3xl font-light pb-4">Press start to play again</p>
 				<Button
 					on:click={() => {
 						resetGame();
-						startGame();
 					}}>START</Button
 				>
 			</div>
