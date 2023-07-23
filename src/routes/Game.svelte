@@ -4,7 +4,6 @@
 	import CardView from '$lib/components/CardView.svelte';
 	import MatchList from '$lib/components/MatchList.svelte';
 	import { levels } from '$lib/config/levels';
-	import Emoji from '$lib/icons/Emoji.svelte';
 	import { confetti } from '@neoconfetti/svelte';
 	import { createEventDispatcher, onMount } from 'svelte';
 
@@ -100,7 +99,7 @@
 </script>
 
 <div
-	class="flex flex-col w-full h-full p-6 md:p-48"
+	class="flex flex-col w-full h-full px-6 md:p-48"
 	style="--size: {selected_level.size}"
 	class:bg-sky-400={selected_level.name === 'Easy'}
 	class:bg-orange-400={selected_level.name === 'Medium'}
@@ -110,7 +109,9 @@
 		<div class="flex flex-col justify-center items-center w-full h-full">
 			<div class="flex items-center gap-2">
 				<h1 class="text-4xl md:text-7xl font-bold tracking-tight">Matchmoji</h1>
-				<Emoji class="h-16 w-16 animate-bounce" />
+				<span class="text-4xl md:text-7xl font-bold"
+					>{selected_level.emojis[Math.floor(Math.random() * selected_level.emojis.length)]}</span
+				>
 			</div>
 			<div class="flex flex-col items-center justify-center py-4">
 				<span class="font-semibold text-slate-800 text-lg">Select a difficulty</span>
@@ -182,30 +183,38 @@
 				/>
 			</div>
 			<div class="flex flex-col gap-2 justify-center items-center w-full h-full">
-				<h1 class="text-5xl font-bold">Winner 🥳</h1>
-				<div class="flex gap-2 justify-center items-center py-4">
-					<p class="text-sm font-bold py-2">You cleared the board in</p>
-					<div class="text-xl bg-white px-3 py-1 rounded-lg">
-						<span class="font-bold"> {selected_level.duration - countdown} </span> sec
+				<img alt="owl" src="owl.gif" class="h-36" />
+				<h1 class="text-5xl font-bold">DAMN!</h1>
+				<div class="flex flex-col justify-center items-center py-4">
+					<p class="text-lg font-bold py-2">You cleared the board in</p>
+					<div class="bg-green-300 px-2 py-1 rounded-lg">
+						<span class="font-bold"> {selected_level.duration - countdown} </span> seconds
 					</div>
 				</div>
-				<p class="text-3xl font-light pb-4">Not done yet?</p>
+				<div class="flex flex-col">
+					<p class="text-3xl font-light pb-4">Not done yet?</p>
+					<Button
+						color="bg-orange-400"
+						on:click={() => {
+							resetGame();
+						}}>PLAY AGAIN</Button
+					>
+				</div>
+			</div>
+		</div>
+	{:else if state === 'lost'}
+		<div class="flex flex-col justify-center items-center w-full h-full">
+			<img alt="owl" src="smile.gif" class="h-48 pb-2" />
+			<h1 class="text-5xl font-bold">It's ok...</h1>
+			<div class="flex flex-col py-5">
+				<p class="text-3xl font-light pb-4">Wanna try again?</p>
 				<Button
+					color="bg-purple-400"
 					on:click={() => {
 						resetGame();
 					}}>PLAY AGAIN</Button
 				>
 			</div>
-		</div>
-	{:else if state === 'lost'}
-		<div class="flex flex-col justify-center items-center w-full h-full">
-			<h1 class="text-5xl font-bold">Game over 😵</h1>
-			<p class="text-3xl font-light pb-4">Wanna try again?</p>
-			<Button
-				on:click={() => {
-					resetGame();
-				}}>RETRY</Button
-			>
 		</div>
 	{/if}
 </div>
