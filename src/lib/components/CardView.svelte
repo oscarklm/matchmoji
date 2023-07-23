@@ -9,7 +9,7 @@
 		<button class="w-full h-full bg-transparent" on:click />
 	</div>
 	<div
-		class="back rounded-md bg-white flex justify-center items-center ring-2 ring-slate-800 md:text-4xl"
+		class="back rounded-md bg-white flex justify-center items-center ring-2 ring-slate-800 md:text-5xl"
 		class:matched
 	>
 		{card.emoji}

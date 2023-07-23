@@ -380,13 +380,13 @@ export const levels: Level[] = [
 	},
 	{
 		name: 'Medium',
-		duration: 100,
+		duration: 85,
 		emojis: medium,
 		size: 6
 	},
 	{
 		name: 'Hard',
-		duration: 160,
+		duration: 145,
 		emojis: hard,
 		size: 8
 	}

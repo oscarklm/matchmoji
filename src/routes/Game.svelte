@@ -3,6 +3,7 @@
 	import Button from '$lib/components/Button.svelte';
 	import CardView from '$lib/components/CardView.svelte';
 	import MatchList from '$lib/components/MatchList.svelte';
+	import { levels } from '$lib/config/levels';
 	import Emoji from '$lib/icons/Emoji.svelte';
 	import { confetti } from '@neoconfetti/svelte';
 	import { createEventDispatcher, onMount } from 'svelte';
@@ -10,8 +11,8 @@
 	const dispatch = createEventDispatcher();
 
 	// Settings
-	export let level: Level;
 	export let state: PlayState;
+	let selected_level: Level = levels[0];
 
 	// State
 	let emojis: string[] = [];
@@ -26,7 +27,7 @@
 		cards = createCards();
 		dispatch('start');
 		state = 'playing';
-		spawnCountdown(level.duration);
+		spawnCountdown(selected_level.duration);
 	}
 
 	function resetGame() {
@@ -50,7 +51,7 @@
 
 	function createCards(): Card[] {
 		// Create an array of random unique emojis, using the levels emoji list
-		emojis = scrambleArray(level.emojis).slice(0, level.size ** 2 / 2);
+		emojis = scrambleArray(selected_level.emojis).slice(0, selected_level.size ** 2 / 2);
 
 		// Create 2 cards for each item in the emojis array
 		const newCards = [...emojis, ...emojis].map((emoji, index) => {
@@ -80,7 +81,7 @@
 	}
 
 	$: {
-		if (matches.length === level.size * 2) {
+		if (matches.length === selected_level.size * 2) {
 			setTimeout(() => {
 				state = 'won';
 			}, 500);
@@ -88,26 +89,50 @@
 	}
 </script>
 
-<main class="flex flex-col h-screen w-screen p-10 md:p-48" style="--size: {level.size}">
+<main
+	class="flex flex-col h-screen w-screen p-10 md:p-48"
+	style="--size: {selected_level.size}"
+	class:bg-sky-400={selected_level.name === 'Easy'}
+	class:bg-orange-400={selected_level.name === 'Medium'}
+	class:bg-red-400={selected_level.name === 'Hard'}
+>
 	{#if state === 'waiting'}
-		<div class="flex flex-col gap-2 justify-center items-center w-full h-full">
+		<div class="flex flex-col justify-center items-center w-full h-full">
 			<div class="flex items-center gap-2">
 				<h1 class="text-4xl md:text-7xl font-bold tracking-tight">Matchmoji</h1>
-				<Emoji class="h-16 w-16" />
+				<Emoji class="h-16 w-16 animate-bounce" />
 			</div>
-			<p class="text-2xl md:text-4xl font-light pb-4 md:pb-6">Press start to play</p>
-			<Button
-				on:click={() => {
-					startGame();
-				}}>Start</Button
-			>
+			<div class="flex flex-col items-center justify-center py-4">
+				<span class="font-semibold text-slate-800 text-lg">Select a difficulty</span>
+				<div class="flex gap-2 md:gap-3">
+					{#each levels as level}
+						<label class="flex gap-2 items-center text-base md:text-lg font-semibold">
+							<input
+								class="h-5 w-5 text-indigo-600"
+								type="radio"
+								name="levels"
+								value={level}
+								bind:group={selected_level}
+							/>
+							{level.name}
+						</label>
+					{/each}
+				</div>
+				<div class="py-8">
+					<Button
+						on:click={() => {
+							startGame();
+						}}>START</Button
+					>
+				</div>
+			</div>
 		</div>
 	{:else if state === 'playing'}
 		<div class="flex flex-col w-full h-full gap-2 content-center justify-center">
 			<div class="flex flex-col gap-2">
 				<div class="text-center">
 					<h1 class="text-2xl font-semibold">Match all cards to win 🏆</h1>
-					<div class="text-4xl font-bold">{countdown}</div>
+					<div class="text-4xl font-bold animate-pulse">{countdown}</div>
 				</div>
 				<div class="h-10">
 					<MatchList {matches} />
@@ -142,12 +167,12 @@
 					use:confetti={{
 						stageWidth: innerWidth,
 						stageHeight: innerHeight,
-						particleCount: 18
+						particleCount: 20
 					}}
 				/>
 			</div>
 			<div class="flex flex-col gap-2 justify-center items-center w-full h-full">
-				<h1 class="text-5xl">You won 🥳</h1>
+				<h1 class="text-5xl font-bold">You won 🥳</h1>
 				<p class="text-3xl font-light pb-4">Press start to play</p>
 				<Button
 					on:click={() => {
@@ -159,7 +184,7 @@
 		</div>
 	{:else if state === 'lost'}
 		<div class="flex flex-col justify-center items-center w-full h-full">
-			<h1 class="text-5xl">Game over 😵</h1>
+			<h1 class="text-5xl font-bold">Game over 😵</h1>
 			<p class="text-3xl font-light pb-4">Press start to try again</p>
 			<Button
 				on:click={() => {
@@ -179,9 +204,10 @@
 		gap: calc(var(--size) * 0.05rem);
 		perspective: 100vw;
 	}
-	@media (min-width: 500) {
+	@media (min-width: 768px) {
+		/* Styles for large screens */
 		.grid {
-			gap: 1rem;
+			gap: calc(var(--size) * 0.1rem);
 		}
 	}
 </style>
