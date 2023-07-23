@@ -6,14 +6,16 @@
 	let state: PlayState = 'waiting';
 </script>
 
-<main class="h-screen w-screen">
-	<Game
-		{state}
-		on:match={() => {
-			console.log('match');
-		}}
-		on:start={() => {
-			console.log('start');
-		}}
-	/>
-</main>
+<div class="absolute inset-0">
+	<div class="h-screen w-screen">
+		<Game
+			{state}
+			on:match={() => {
+				console.log('match');
+			}}
+			on:start={() => {
+				console.log('start');
+			}}
+		/>
+	</div>
+</div>

@@ -99,7 +99,7 @@
 </script>
 
 <div
-	class="flex w-full h-full flex-col p-6 md:p-48"
+	class="flex flex-col w-full h-full p-6 md:p-48"
 	style="--size: {selected_level.size}"
 	class:bg-sky-400={selected_level.name === 'Easy'}
 	class:bg-orange-400={selected_level.name === 'Medium'}
