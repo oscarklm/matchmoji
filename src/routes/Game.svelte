@@ -73,7 +73,8 @@
 			prev_selection = new_selection;
 		} else {
 			if (prev_selection.emoji === new_selection.emoji) {
-				matches = [...matches, prev_selection.emoji];
+				matches.unshift(prev_selection.emoji);
+				matches = matches;
 				dispatch('match', prev_selection.emoji);
 			}
 			prev_selection = new_selection;
@@ -181,24 +182,29 @@
 				/>
 			</div>
 			<div class="flex flex-col gap-2 justify-center items-center w-full h-full">
-				<h1 class="text-5xl font-bold">You won 🥳</h1>
-				<p class="text-3xl font-light pb-4">Press start to play again</p>
+				<h1 class="text-5xl font-bold">Winner 🥳</h1>
+				<div class="flex gap-2 justify-center items-center py-4">
+					<p class="text-sm font-bold py-2">You cleared the board in</p>
+					<div class="text-xl bg-white px-3 py-1 rounded-lg">
+						<span class="font-bold"> {selected_level.duration - countdown} </span> sec
+					</div>
+				</div>
+				<p class="text-3xl font-light pb-4">Not done yet?</p>
 				<Button
 					on:click={() => {
 						resetGame();
-					}}>START</Button
+					}}>PLAY AGAIN</Button
 				>
 			</div>
 		</div>
 	{:else if state === 'lost'}
 		<div class="flex flex-col justify-center items-center w-full h-full">
 			<h1 class="text-5xl font-bold">Game over 😵</h1>
-			<p class="text-3xl font-light pb-4">Press start to try again</p>
+			<p class="text-3xl font-light pb-4">Wanna try again?</p>
 			<Button
 				on:click={() => {
 					resetGame();
-					startGame();
-				}}>START</Button
+				}}>RETRY</Button
 			>
 		</div>
 	{/if}
