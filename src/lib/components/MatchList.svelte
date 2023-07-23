@@ -4,7 +4,7 @@
 	export let matches: string[];
 </script>
 
-<div class="flex gap-2 w-full h-full select-none">
+<div class="flex gap-2 w-full h-full select-none overflow-hidden">
 	{#each matches as match (match)}
 		<div class="flex justify-center items-center bg-white rounded-md h-9 w-9">
 			<div class="text-sm translate-x-1 -translate-y-0.5">{match}</div>
