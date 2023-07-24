@@ -213,6 +213,9 @@
 		<div class="flex flex-col justify-center items-center w-full h-full">
 			<img alt="owl" src="smile.gif" class="h-48 pb-2" />
 			<h1 class="text-5xl font-bold">It's ok...</h1>
+			<div class="flex flex-col justify-center items-center">
+				<h1>You found {matches.length} / {emojis.length} matches</h1>
+			</div>
 			<div class="flex flex-col py-5">
 				<p class="text-3xl font-light pb-4">Wanna try again?</p>
 				<Button
