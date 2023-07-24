@@ -101,9 +101,9 @@
 <div
 	class="flex flex-col w-full h-full px-6 md:p-48"
 	style="--size: {selected_level.size}"
-	class:bg-sky-400={selected_level.name === 'Easy'}
-	class:bg-orange-400={selected_level.name === 'Medium'}
-	class:bg-red-400={selected_level.name === 'Hard'}
+	class:bg-sky-500={selected_level.name === 'Easy'}
+	class:bg-orange-500={selected_level.name === 'Medium'}
+	class:bg-rose-500={selected_level.name === 'Hard'}
 >
 	{#if state === 'waiting'}
 		<div class="flex flex-col justify-center items-center w-full h-full">
@@ -115,7 +115,7 @@
 			</div>
 			<div class="flex flex-col items-center justify-center py-4">
 				<span class="font-semibold text-slate-800 text-lg">Select a difficulty</span>
-				<div class="flex gap-2 md:gap-3">
+				<div class="flex-col justify-center items-center gap-2 md:gap-3">
 					{#each levels as level}
 						<label class="flex gap-2 items-center text-base md:text-lg font-semibold">
 							<input
@@ -126,6 +126,9 @@
 								bind:group={selected_level}
 							/>
 							{level.name}
+							{#if level.name === 'Hard'}
+								<div class="text-yellow-200 drop-shadow-md text-sm">⚠️ ANTI-BOOMER MODE ⚠️</div>
+							{/if}
 						</label>
 					{/each}
 				</div>
@@ -186,7 +189,11 @@
 				<img alt="owl" src="owl.gif" class="h-36" />
 				<h1 class="text-5xl font-bold">DAMN!</h1>
 				<div class="flex flex-col justify-center items-center py-4">
-					<p class="text-lg font-bold py-2">You cleared the board in</p>
+					<p class="text-lg font-bold py-2">
+						You cleared <span class="uppercase underline underline-offset-2 text-white"
+							>{selected_level.name}
+						</span> in
+					</p>
 					<div class="bg-green-300 px-2 py-1 rounded-lg">
 						<span class="font-bold"> {selected_level.duration - countdown} </span> seconds
 					</div>
@@ -194,7 +201,7 @@
 				<div class="flex flex-col">
 					<p class="text-3xl font-light pb-4">Not done yet?</p>
 					<Button
-						color="bg-orange-400"
+						color="bg-green-400"
 						on:click={() => {
 							resetGame();
 						}}>PLAY AGAIN</Button
